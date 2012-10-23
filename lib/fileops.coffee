@@ -38,7 +38,7 @@ class fileops
         else
             log 'File does not exist'
             error = new Error "File does not exist"
-            callback(true)
+            callback(error)
 
     readFile: (filename, callback) ->
         @fileExists filename, (result) ->
@@ -48,6 +48,21 @@ class fileops
                 log 'reading the file'
                 buf = fs.readFileSync filename
                 callback(buf)
+
+    readFileSync: (filename) ->
+        if path.existsSync filename
+            content = fs.readFileSync filename, 'utf8'
+            console.log 'content is ' + content
+            return content
+        else
+            return new Error "file #{filename} does not exist"
+
+    readdirSync: (dirname) ->
+        if path.existsSync dirname
+            content = fs.readdirSync dirname
+            return content
+        else
+            return new Error "Directory #{dirname} does not exist"
 
        
 module.exports = new fileops
