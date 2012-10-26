@@ -27,6 +27,10 @@ class fileops
         fs.unlink filename, (error)->
             callback(error)
 
+    removeFileSync: (filename) ->
+        res = fs.unlinkSync filename
+        return res
+
     updateFile: (filename, content) ->
         fs.writeFileSync filename, content
 
@@ -39,6 +43,12 @@ class fileops
             log 'File does not exist'
             error = new Error "File does not exist"
             callback(error)
+
+    fileExistsSync: (filename) ->
+        if path.existsSync filename
+            return true
+        else
+            return new Error "File does not exist"
 
     readFile: (filename, callback) ->
         @fileExists filename, (result) ->
