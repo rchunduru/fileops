@@ -74,5 +74,26 @@ class fileops
         else
             return new Error "Directory #{dirname} does not exist"
 
+    link: (src, dest, force, callback) ->
+        res = @fileExistsSync src
+        return new Error res if res instanceof Error
+        if force==1
+            console.log 'forcefully overwrite the file ' + dest
+            res = @fileExistsSync dest
+            @removeFileSync dest unless res instanceof Error
+        fs.link src, dest, (res)->
+            callback(res)
+
+    linkSync: (src, dst, force) ->
+        res = @fileExistsSync src
+        console.log res
+        return new Error "File does not exist!" if res instanceof Error
+        if force==1
+            console.log 'forcefully overwrite the file ' + dst
+            @fileExistsSync dst
+            fs.unlinkSync dst unless res instanceof Error
+        res = fs.linkSync src, dst
+        return res
+
        
 module.exports = new fileops
