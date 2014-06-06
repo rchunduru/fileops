@@ -1,6 +1,6 @@
 {
   "name": "fileops",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "dependencies": {
   },
   "engines": {
@@ -15,7 +15,7 @@
     "url": "git://github.com/rchunduru/fileops.git"
   },
   "scripts": {
-      "prepublish": "mkdir -p lib; coffee -o lib -c src",
+      "prepublish": "mkdir -p lib; coffee -o lib -c src"
   },
   "keywords": ["fs", "fileops"],
   "main": "./lib/fileops.coffee",
